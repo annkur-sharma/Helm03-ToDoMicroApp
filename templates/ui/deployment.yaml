@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-ui-deploy-{{ .Release.Name }}
+spec:
+  replicas: {{ .Values.ui.replicas }}
+  selector:
+    matchLabels:
+      app: todo-ui-{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: todo-ui-{{ .Release.Name }}
+    spec:
+      containers:
+      - name: todo-ui-container-{{ .Release.Name }}
+        image: {{ .Values.common.containerRegistryURL }}/{{ .Values.ui.image.name }}:{{ .Values.ui.image.tag }}
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 200m
+            memory: 200Mi
+        env:
+        - name: GET_TASKS_API_BASE_URL
+          value: {{ .Values.ui.env.REACT_APP_GET_TASKS_API_BASE_URL }}
+        - name: DELETE_TASK_API_BASE_URL
+          value: {{ .Values.ui.env.REACT_APP_DELETE_TASK_API_BASE_URL }}
+        - name: CREATE_TASK_API_BASE_URL
+          value: {{ .Values.ui.env.REACT_APP_CREATE_TASK_API_BASE_URL }}

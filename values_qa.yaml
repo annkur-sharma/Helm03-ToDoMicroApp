@@ -1,0 +1,39 @@
+common:
+  containerRegistryURL: oaiiqv113623acr.azurecr.io
+  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:oaiiqv113623sqlserver.database.windows.net,1433;Database=oaiiqv-113623-SQLDB-qa;Uid=SQLUser1;Pwd=SQLPass1@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+
+ui:
+  replicas: 2
+  image:
+    name: todo-ui
+    tag: v2
+  ingress:
+    host: qa-ui.sharmaji.club
+  env:
+    REACT_APP_GET_TASKS_API_BASE_URL: "http://qa-get-tasks-api.sharmaji.club"
+    REACT_APP_DELETE_TASK_API_BASE_URL: "http://qa-delete-task-api.sharmaji.club"
+    REACT_APP_CREATE_TASK_API_BASE_URL: "http://qa-add-task-api.sharmaji.club"
+
+addTask:
+  replicas: 1
+  image:
+    name: todo-add-tasks-api
+    tag: v1
+  ingress:
+    host: qa-add-task-api.sharmaji.club
+
+deleteTask:
+  replicas: 2
+  image:
+    name: todo-delete-tasks-api
+    tag: v1
+  ingress:
+    host: qa-delete-task-api.sharmaji.club
+
+getTask:
+  replicas: 1
+  image:
+    name: todo-get-tasks-api
+    tag: v1
+  ingress:
+    host: qa-get-tasks-api.sharmaji.club

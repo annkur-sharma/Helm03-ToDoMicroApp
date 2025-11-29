@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-delete-tasks-deploy-{{ .Release.Name }}
+spec:
+  replicas: {{ .Values.deleteTask.replicas }}
+  selector:
+    matchLabels:
+      app: todo-delete-tasks-{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: todo-delete-tasks-{{ .Release.Name }}
+    spec:
+      containers:
+      - name: todo-delete-tasks-container-{{ .Release.Name }}
+        image: {{ .Values.common.containerRegistryURL }}/{{ .Values.deleteTask.image.name }}:{{ .Values.deleteTask.image.tag }}
+        ports:
+        - containerPort: 8000
+        env: 
+        - name: CONNECTION_STRING
+          value: {{ .Values.common.connectionString }}

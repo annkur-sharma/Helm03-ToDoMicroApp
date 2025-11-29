@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-add-tasks-deploy-{{ .Release.Name }}
+spec:
+  replicas: {{ .Values.addTask.replicas }}
+  selector:
+    matchLabels:
+      app: todo-add-tasks-{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: todo-add-tasks-{{ .Release.Name }}
+    spec:
+      containers:
+      - name: todo-add-tasks-container-{{ .Release.Name }}
+        image: {{ .Values.common.containerRegistryURL }}/{{ .Values.addTask.image.name }}:{{ .Values.addTask.image.tag }}
+        ports:
+        - containerPort: 8000
+        env: 
+        - name: CONNECTION_STRING
+          value: {{ .Values.common.connectionString }}
