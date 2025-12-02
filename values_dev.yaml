@@ -1,6 +1,6 @@
 common:
   containerRegistryURL: odocqd021433acr.azurecr.io
-  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:odocqd021433sqlserver.database.windows.net,1433;Database=rg1k8ssqldbdev;Uid=SQLUser1;Pwd=SQLPass1;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:odocqd021433sqlserver.database.windows.net,1433;Database=local.final_root_sql_database_name-dev;Uid=SQLUser1;Pwd=SQLPass1;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 
 ui:
   replicas: 1
